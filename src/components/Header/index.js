@@ -1,12 +1,14 @@
 import Cookies from 'js-cookie'
 import {withRouter} from 'react-router-dom'
 import {FaMoon} from 'react-icons/fa'
-import {FiSun} from 'react-icons/fi'
+import {BsBrightnessHigh} from 'react-icons/bs'
 import {IoMenu} from 'react-icons/io5'
 import {FcMenu} from 'react-icons/fc'
 import {IoIosLogOut} from 'react-icons/io'
 
 import ModeContext from '../Context'
+
+import './index.css'
 
 import {
   Navbar,
@@ -15,12 +17,20 @@ import {
   NavbarItems,
   ListStyleButton,
   listStyleItem,
+  ProfileImg,
+  LogOutButton,
+  listStyleMobileItem,
+  listStyleLaptopItem,
 } from './styledComponents'
 
 const Header = props => (
   <ModeContext.Consumer>
     {value => {
       const {darkMode, changeMode} = value
+      const logoUrl = darkMode
+        ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
+        : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
+      const color = darkMode ? 'lightColor' : ''
 
       const onLogout = () => {
         const {history} = props
@@ -35,28 +45,41 @@ const Header = props => (
       return (
         <Navbar darkMode={darkMode}>
           <HeaderCont>
-            <WebsiteLogo
-              src={
-                darkMode
-                  ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
-                  : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
-              }
-            />
+            <WebsiteLogo src={logoUrl} />
+
             <NavbarItems>
-              <ListStyleButton onClick={onChangeMode}>
-                <listStyleItem>
-                  {darkMode ? <FiSun /> : <FaMoon />}
-                </listStyleItem>
-              </ListStyleButton>
               <ListStyleButton>
-                <listStyleItem>
-                  {darkMode ? <FcMenu /> : <IoMenu />}
+                <listStyleItem onClick={onChangeMode}>
+                  {darkMode ? (
+                    <BsBrightnessHigh className={`ChangeModeIcon ${color}`} />
+                  ) : (
+                    <FaMoon className={`ChangeModeIcon ${color}`} />
+                  )}
                 </listStyleItem>
               </ListStyleButton>
-              <ListStyleButton onClick={onLogout}>
-                <listStyleItem>
+
+              <ListStyleButton>
+                <listStyleMobileItem>
+                  {darkMode ? <FcMenu /> : <IoMenu />}
+                </listStyleMobileItem>
+              </ListStyleButton>
+
+              <ListStyleButton>
+                <listStyleLaptopItem>
+                  <ProfileImg src="https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png" />
+                </listStyleLaptopItem>
+              </ListStyleButton>
+
+              <ListStyleButton>
+                <listStyleMobileItem onClick={onLogout}>
                   <IoIosLogOut />
-                </listStyleItem>
+                </listStyleMobileItem>
+              </ListStyleButton>
+
+              <ListStyleButton>
+                <listStyleLaptopItem>
+                  <LogOutButton>LogOut</LogOutButton>
+                </listStyleLaptopItem>
               </ListStyleButton>
             </NavbarItems>
           </HeaderCont>
