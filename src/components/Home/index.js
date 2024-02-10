@@ -1,8 +1,9 @@
 import {Component} from 'react'
 import Loader from 'react-loader-spinner'
-import {IoIosSearch} from 'react-icons/io'
+import {IoIosSearch, IoIosClose} from 'react-icons/io'
 import Cookies from 'js-cookie'
-
+import {formatDistanceToNow} from 'date-fns'
+import {Link} from 'react-router-dom'
 import Header from '../Header'
 
 import ModeContext from '../Context'
@@ -26,6 +27,16 @@ import {
   FailureHead,
   FailurePara,
   Retry,
+  VideoItemContainer,
+  VideoImage,
+  VideoTextDetails,
+  ChannelLogo,
+  ChannelDetails,
+  ChannelPara,
+  ChannelCount,
+  VideosUnorderedList,
+  Dot,
+  CloseBtn,
 } from './styledComponents'
 
 const ApiStatusConstants = {
@@ -35,11 +46,52 @@ const ApiStatusConstants = {
   failure: 'FAILURE',
 }
 
+const VideoItem = props => {
+  const {videoItemDetails} = props
+  const {
+    id,
+    title,
+    thumbnailUrl,
+    channel,
+    viewCount,
+    publishedAt,
+  } = videoItemDetails
+
+  const time = formatDistanceToNow(new Date(publishedAt))
+  return (
+    <ModeContext.Consumer>
+      {value => {
+        const {darkMode} = value
+        return (
+          <VideoItemContainer>
+            <VideoImage src={thumbnailUrl} />
+            <VideoTextDetails>
+              <ChannelLogo src={channel.profile_image_url} />
+              <ChannelDetails>
+                <ChannelPara>{title}</ChannelPara>
+                <ChannelPara color=" #606060">{channel.name}</ChannelPara>
+                <ChannelCount>
+                  <ChannelPara color="  #606060">{viewCount} views</ChannelPara>
+                  <ChannelPara color="  #606060">
+                    <Dot> &#8226; </Dot>
+                    {time} ago
+                  </ChannelPara>
+                </ChannelCount>
+              </ChannelDetails>
+            </VideoTextDetails>
+          </VideoItemContainer>
+        )
+      }}
+    </ModeContext.Consumer>
+  )
+}
+
 class Home extends Component {
   state = {
     searchInput: '',
     ApiStatus: ApiStatusConstants.initial,
     VideosList: [],
+    showBanner: true,
   }
 
   componentDidMount = () => {
@@ -54,19 +106,31 @@ class Home extends Component {
     const options = {
       method: 'GET',
       headers: {
-        authorization: `Bearer ${jwtToken}`,
+        Authorization: `Bearer ${jwtToken}`,
       },
     }
     const response = await fetch(apiUrl, options)
     if (response.ok) {
       const data = await response.json()
+      const updatedData = data.videos.map(eachVideo => ({
+        channel: eachVideo.channel,
+        id: eachVideo.id,
+        publishedAt: eachVideo.published_at,
+        thumbnailUrl: eachVideo.thumbnail_url,
+        viewCount: eachVideo.view_count,
+        title: eachVideo.title,
+      }))
       this.setState({
-        ApiStatus: ApiStatusConstants.SUCCESS,
-        VideosList: data.videos,
+        ApiStatus: ApiStatusConstants.success,
+        VideosList: updatedData,
       })
     } else {
       this.setState({ApiStatus: ApiStatusConstants.failure})
     }
+  }
+
+  onSearchBtn = () => {
+    this.getListOfVideosData()
   }
 
   renderBanner = () => (
@@ -83,6 +147,10 @@ class Home extends Component {
     </div>
   )
 
+  onRetry = () => {
+    this.setState({searchInput: ''}, this.getListOfVideosData())
+  }
+
   renderFailureView = () => (
     <div className="FailureContainer">
       <FailureView src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png" />
@@ -90,15 +158,23 @@ class Home extends Component {
       <FailurePara>
         We are having some trouble to complete your request.Please try again.
       </FailurePara>
-      <Retry>Retry</Retry>
+      <Retry onClick={this.onRetry}>Retry</Retry>
     </div>
   )
 
   renderVideosList = () => {
     const {VideosList} = this.state
-    const videosListInCamelCase = VideosList.map(eachItem =>
-      toCamelCase(eachItem),
+    return (
+      <VideosUnorderedList>
+        {VideosList.map(eachItem => (
+          <VideoItem key={eachItem.id} videoItemDetails={eachItem} />
+        ))}
+      </VideosUnorderedList>
     )
+  }
+
+  onChangeSearchInput = event => {
+    this.setState({searchInput: event.target.value})
   }
 
   renderMainContainer = () => {
@@ -115,7 +191,12 @@ class Home extends Component {
     }
   }
 
+  onClickCloseBtn = () => {
+    this.setState({showBanner: false})
+  }
+
   render() {
+    const {showBanner} = this.state
     return (
       <div>
         <Header />
@@ -124,7 +205,16 @@ class Home extends Component {
             <p>Home container elements</p>
           </MenuSideBar>
           <HomeContainerItem>
-            <BannerItem>{this.renderBanner()}</BannerItem>
+            {showBanner && (
+              <BannerItem>
+                {this.renderBanner()}
+                <div data-testid="close">
+                  <CloseBtn onClick={this.onClickCloseBtn}>
+                    <IoIosClose className="closeBtn" />
+                  </CloseBtn>
+                </div>
+              </BannerItem>
+            )}
             <HomeMainContainer>
               <SearchBarContainer>
                 <SearchBar
@@ -132,7 +222,7 @@ class Home extends Component {
                   type="Search"
                   onChange={this.onChangeSearchInput}
                 />
-                <SearchButton>
+                <SearchButton onClick={this.onSearchBtn}>
                   <IoIosSearch className="SearchIcon" />
                 </SearchButton>
               </SearchBarContainer>

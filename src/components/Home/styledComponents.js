@@ -22,12 +22,21 @@ export const BannerItem = styled.div`
   background-size: cover;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   padding: 15px;
   min-height: 200px;
 `
 
 export const BannerDetails = styled.div`
   width: 50%;
+`
+export const CloseBtn = styled.button`
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  margin-right: 5px;
 `
 
 export const NxtWatchLogo = styled.img`
@@ -49,9 +58,9 @@ export const GetItNow = styled.button`
 export const SearchBarContainer = styled.div`
   display: flex;
   flex-direction: row;
-  margin: 3px;
   justify-content: flex-start;
   align-items: center;
+  margin-left: 10px;
 `
 export const SearchBar = styled.input`
   width: 320px;
@@ -63,7 +72,9 @@ export const SearchButton = styled.button`
 `
 export const HomeMainContainer = styled.div`
   background-color: #f4f4f4;
-  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 `
 export const FailureView = styled.img`
   width: 200px;
@@ -78,4 +89,56 @@ export const FailurePara = styled.p`
 export const Retry = styled.button`
   background-color: #00306e;
   color: #ebebeb;
+`
+export const VideosUnorderedList = styled.ul`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin: none;
+`
+export const VideoItemContainer = styled.li`
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 300px;
+  margin-right: auto;
+  margin-bottom: 20px;
+`
+export const VideoImage = styled.img`
+  width: 300px;
+  height: 300px;
+`
+export const VideoTextDetails = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+`
+export const ChannelLogo = styled.img`
+  width: 40px;
+  height: 40px;
+`
+export const ChannelDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 5px;
+  font-weight: 500;
+`
+export const ChannelPara = styled.p`
+  padding: none;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  margin-left: 2px;
+  color: ${props => props.color};
+`
+export const ChannelCount = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+export const Dot = styled.span`
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  padding-left: 5px;
+  padding-right: 5px;
 `
