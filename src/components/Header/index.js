@@ -6,9 +6,8 @@ import {IoMenu} from 'react-icons/io5'
 import {FcMenu} from 'react-icons/fc'
 import {IoIosLogOut} from 'react-icons/io'
 
-import ModeContext from '../Context'
-
 import './index.css'
+import ModeContext from '../Context'
 
 import {
   Navbar,
@@ -16,11 +15,11 @@ import {
   WebsiteLogo,
   NavbarItems,
   ListStyleButton,
-  listStyleItem,
+  ListStyleItem,
+  ListStyleMobileItem,
+  ListStyleLaptopItem,
   ProfileImg,
-  LogOutButton,
-  listStyleMobileItem,
-  listStyleLaptopItem,
+  LogoutButton,
 } from './styledComponents'
 
 const Header = props => (
@@ -45,42 +44,46 @@ const Header = props => (
       return (
         <Navbar darkMode={darkMode}>
           <HeaderCont>
-            <WebsiteLogo src={logoUrl} />
+            <WebsiteLogo src={logoUrl} alt="nxt watch logo" />
 
             <NavbarItems>
-              <ListStyleButton>
-                <listStyleItem onClick={onChangeMode}>
+              <ListStyleItem>
+                <ListStyleButton onClick={onChangeMode}>
                   {darkMode ? (
-                    <BsBrightnessHigh className={`ChangeModeIcon ${color}`} />
+                    <BsBrightnessHigh className={`NavbarIcon ${color}`} />
                   ) : (
-                    <FaMoon className={`ChangeModeIcon ${color}`} />
+                    <FaMoon className={`NavbarIcon ${color}`} />
                   )}
-                </listStyleItem>
-              </ListStyleButton>
+                </ListStyleButton>
+              </ListStyleItem>
 
-              <ListStyleButton>
-                <listStyleMobileItem>
-                  {darkMode ? <FcMenu /> : <IoMenu />}
-                </listStyleMobileItem>
-              </ListStyleButton>
+              <ListStyleMobileItem>
+                <ListStyleButton>
+                  {darkMode ? (
+                    <FcMenu className={`NavbarIcon ${color}`} />
+                  ) : (
+                    <IoMenu className={`NavbarIcon ${color}`} />
+                  )}
+                </ListStyleButton>
+              </ListStyleMobileItem>
 
-              <ListStyleButton>
-                <listStyleLaptopItem>
+              <ListStyleLaptopItem>
+                <ListStyleButton>
                   <ProfileImg src="https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png" />
-                </listStyleLaptopItem>
-              </ListStyleButton>
+                </ListStyleButton>
+              </ListStyleLaptopItem>
 
-              <ListStyleButton>
-                <listStyleMobileItem onClick={onLogout}>
-                  <IoIosLogOut />
-                </listStyleMobileItem>
-              </ListStyleButton>
+              <ListStyleLaptopItem>
+                <LogoutButton darkMode={darkMode} onClick={onLogout}>
+                  LogOut
+                </LogoutButton>
+              </ListStyleLaptopItem>
 
-              <ListStyleButton>
-                <listStyleLaptopItem>
-                  <LogOutButton>LogOut</LogOutButton>
-                </listStyleLaptopItem>
-              </ListStyleButton>
+              <ListStyleMobileItem>
+                <ListStyleButton onClick={onLogout}>
+                  <IoIosLogOut className={`NavbarIcon ${color}`} />
+                </ListStyleButton>
+              </ListStyleMobileItem>
             </NavbarItems>
           </HeaderCont>
         </Navbar>

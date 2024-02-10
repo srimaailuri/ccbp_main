@@ -1,0 +1,10 @@
+.SearchIcon {
+  width: 25px;
+  height: 25px;
+}
+.FailureContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
