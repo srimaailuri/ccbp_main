@@ -1,6 +1,10 @@
 import {Component} from 'react'
 import Loader from 'react-loader-spinner'
 import {IoIosSearch, IoIosClose} from 'react-icons/io'
+import {AiFillHome} from 'react-icons/ai'
+import {FaFire} from 'react-icons/fa'
+import {SiYoutubegaming} from 'react-icons/si'
+import {MdPlaylistAdd} from 'react-icons/md'
 import Cookies from 'js-cookie'
 import {formatDistanceToNow} from 'date-fns'
 import {Link} from 'react-router-dom'
@@ -37,6 +41,8 @@ import {
   VideosUnorderedList,
   Dot,
   CloseBtn,
+  SideBarListItem,
+  SideBarItemsContainer,
 } from './styledComponents'
 
 const ApiStatusConstants = {
@@ -44,6 +50,28 @@ const ApiStatusConstants = {
   loading: 'LOADING',
   success: 'SUCCESS',
   failure: 'FAILURE',
+}
+
+const SideBarMenu = [
+  {id: 'HOME', Icon: <AiFillHome />, displaytext: 'Home'},
+  {id: 'TRENDING', Icon: <FaFire />, displaytext: 'Trending'},
+  {id: 'GAMING', Icon: <SiYoutubegaming />, displaytext: 'Gaming'},
+  {
+    id: 'SAVEDVIDEOS',
+    Icon: <MdPlaylistAdd />,
+    displaytext: 'Saved Videos',
+  },
+]
+
+const SideBarItem = props => {
+  const {Details} = props
+  const {Icon, displaytext} = Details
+  return (
+    <SideBarListItem>
+      {Icon}
+      <p>{displaytext}</p>
+    </SideBarListItem>
+  )
 }
 
 const VideoItem = props => {
@@ -195,15 +223,21 @@ class Home extends Component {
     this.setState({showBanner: false})
   }
 
+  renderSideBar = () => (
+    <SideBarItemsContainer>
+      {SideBarMenu.map(eachItem => (
+        <SideBarItem key={eachItem.id} Details={eachItem} />
+      ))}
+    </SideBarItemsContainer>
+  )
+
   render() {
     const {showBanner} = this.state
     return (
-      <div>
+      <div className="Home">
         <Header />
         <HomeContainer>
-          <MenuSideBar>
-            <p>Home container elements</p>
-          </MenuSideBar>
+          <MenuSideBar>{this.renderSideBar()}</MenuSideBar>
           <HomeContainerItem>
             {showBanner && (
               <BannerItem>

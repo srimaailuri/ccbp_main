@@ -1,3 +1,8 @@
+.Home {
+  min-width: 100vw;
+  min-height: 100vh;
+}
+
 .SearchIcon {
   width: 25px;
   height: 25px;

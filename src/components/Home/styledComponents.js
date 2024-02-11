@@ -1,17 +1,29 @@
 import styled from 'styled-components'
 
 export const HomeContainer = styled.div`
-  min-width: 100vw;
-  min-height: 100vh;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  min-width: 95%;
 `
 export const MenuSideBar = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   width: 20%;
 `
+
+export const SideBarItemsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export const SideBarListItem = styled.li`
+  display: flex;
+  flex-direction: row;
+`
+
 export const HomeContainerItem = styled.div`
   display: flex;
   flex-direction: column;
