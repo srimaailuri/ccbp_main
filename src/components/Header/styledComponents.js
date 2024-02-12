@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
 export const Navbar = styled.nav`
-  min-width: 100vh;
+  min-width: 100vw;
   min-height: 45px;
-  background-color: ${props => (props.darkMode ? '#212121' : 'white')};
+  background-color: ${props => (props.darkMode ? '#383838' : 'white')};
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -64,7 +64,6 @@ export const ProfileImg = styled.img`
   height: 30px;
 `
 export const LogoutButton = styled.button`
-  color: #ffffff;
   background-color: transparent;
   border-radius: 3px;
   border-color: ${props => (props.darkMode ? 'white' : '#212121')};

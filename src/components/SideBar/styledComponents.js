@@ -7,6 +7,8 @@ export const MenuSideBar = styled.div`
   align-items: flex-start;
   width: 20%;
   height: 100vh;
+  background-color: ${props => (props.darkMode ? '#383838' : 'white')};
+  color: ${props => (props.darkMode ? 'white' : '#212121')};
 
   @media screen and (max-width: 768px) {
     display: none;
