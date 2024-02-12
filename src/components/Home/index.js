@@ -1,10 +1,6 @@
 import {Component} from 'react'
 import Loader from 'react-loader-spinner'
 import {IoIosSearch, IoIosClose} from 'react-icons/io'
-import {AiFillHome} from 'react-icons/ai'
-import {FaFire} from 'react-icons/fa'
-import {SiYoutubegaming} from 'react-icons/si'
-import {MdPlaylistAdd} from 'react-icons/md'
 import Cookies from 'js-cookie'
 import {formatDistanceToNow} from 'date-fns'
 import {Link} from 'react-router-dom'
@@ -14,9 +10,10 @@ import ModeContext from '../Context'
 
 import './index.css'
 
+import SideBarContainerView from '../SideBar'
+
 import {
   HomeContainer,
-  MenuSideBar,
   HomeContainerItem,
   BannerItem,
   SearchBarContainer,
@@ -41,8 +38,10 @@ import {
   VideosUnorderedList,
   Dot,
   CloseBtn,
-  SideBarListItem,
-  SideBarItemsContainer,
+  NoResultsSearchView,
+  SearchImage,
+  SearchHead,
+  Searchpara,
 } from './styledComponents'
 
 const ApiStatusConstants = {
@@ -50,28 +49,6 @@ const ApiStatusConstants = {
   loading: 'LOADING',
   success: 'SUCCESS',
   failure: 'FAILURE',
-}
-
-const SideBarMenu = [
-  {id: 'HOME', Icon: <AiFillHome />, displaytext: 'Home'},
-  {id: 'TRENDING', Icon: <FaFire />, displaytext: 'Trending'},
-  {id: 'GAMING', Icon: <SiYoutubegaming />, displaytext: 'Gaming'},
-  {
-    id: 'SAVEDVIDEOS',
-    Icon: <MdPlaylistAdd />,
-    displaytext: 'Saved Videos',
-  },
-]
-
-const SideBarItem = props => {
-  const {Details} = props
-  const {Icon, displaytext} = Details
-  return (
-    <SideBarListItem>
-      {Icon}
-      <p>{displaytext}</p>
-    </SideBarListItem>
-  )
 }
 
 const VideoItem = props => {
@@ -192,12 +169,26 @@ class Home extends Component {
 
   renderVideosList = () => {
     const {VideosList} = this.state
-    return (
+    const VideosListLength = VideosList.length > 0
+    console.log(VideosListLength)
+    return VideosListLength ? (
       <VideosUnorderedList>
         {VideosList.map(eachItem => (
           <VideoItem key={eachItem.id} videoItemDetails={eachItem} />
         ))}
       </VideosUnorderedList>
+    ) : (
+      <NoResultsSearchView>
+        <SearchImage
+          src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png"
+          alt="no videos"
+        />
+        <SearchHead>No Search results found</SearchHead>
+        <Searchpara>
+          Try different key words or remove search filter.
+        </Searchpara>
+        <Retry onClick={this.onRetry}>Retry</Retry>
+      </NoResultsSearchView>
     )
   }
 
@@ -223,48 +214,51 @@ class Home extends Component {
     this.setState({showBanner: false})
   }
 
-  renderSideBar = () => (
-    <SideBarItemsContainer>
-      {SideBarMenu.map(eachItem => (
-        <SideBarItem key={eachItem.id} Details={eachItem} />
-      ))}
-    </SideBarItemsContainer>
-  )
-
   render() {
     const {showBanner} = this.state
     return (
-      <div className="Home">
-        <Header />
-        <HomeContainer>
-          <MenuSideBar>{this.renderSideBar()}</MenuSideBar>
-          <HomeContainerItem>
-            {showBanner && (
-              <BannerItem>
-                {this.renderBanner()}
-                <div data-testid="close">
-                  <CloseBtn onClick={this.onClickCloseBtn}>
-                    <IoIosClose className="closeBtn" />
-                  </CloseBtn>
-                </div>
-              </BannerItem>
-            )}
-            <HomeMainContainer>
-              <SearchBarContainer>
-                <SearchBar
-                  placeholder="Search"
-                  type="Search"
-                  onChange={this.onChangeSearchInput}
-                />
-                <SearchButton onClick={this.onSearchBtn}>
-                  <IoIosSearch className="SearchIcon" />
-                </SearchButton>
-              </SearchBarContainer>
-              {this.renderMainContainer()}
-            </HomeMainContainer>
-          </HomeContainerItem>
-        </HomeContainer>
-      </div>
+      <ModeContext.Consumer>
+        {value => {
+          const {darkMode} = value
+          return (
+            <div className="Home">
+              <Header />
+              <HomeContainer darkMode={darkMode}>
+                <SideBarContainerView />
+                <HomeContainerItem>
+                  {showBanner && (
+                    <BannerItem>
+                      {this.renderBanner()}
+                      <div data-testid="close">
+                        <CloseBtn onClick={this.onClickCloseBtn}>
+                          <IoIosClose className="closeBtn" />
+                        </CloseBtn>
+                      </div>
+                    </BannerItem>
+                  )}
+                  <HomeMainContainer darkMode={darkMode}>
+                    <SearchBarContainer>
+                      <SearchBar
+                        placeholder="Search"
+                        type="Search"
+                        onChange={this.onChangeSearchInput}
+                        darkMode={darkMode}
+                      />
+                      <SearchButton
+                        onClick={this.onSearchBtn}
+                        darkMode={darkMode}
+                      >
+                        <IoIosSearch className="SearchIcon" />
+                      </SearchButton>
+                    </SearchBarContainer>
+                    {this.renderMainContainer()}
+                  </HomeMainContainer>
+                </HomeContainerItem>
+              </HomeContainer>
+            </div>
+          )
+        }}
+      </ModeContext.Consumer>
     )
   }
 }

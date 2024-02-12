@@ -18,8 +18,8 @@ export const HeaderCont = styled.div`
 `
 
 export const WebsiteLogo = styled.img`
-  width: 150px;
-  height: 40px;
+  width: 120px;
+  height: 30px;
 `
 
 export const NavbarItems = styled.ul`

@@ -4,30 +4,19 @@ export const HomeContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  min-width: 95%;
-`
-export const MenuSideBar = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  width: 20%;
-`
-
-export const SideBarItemsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-
-export const SideBarListItem = styled.li`
-  display: flex;
-  flex-direction: row;
+  min-width: 100vw;
+  background-color: ${props => (props.darkMode ? '#212121' : 'white')};
+  color: ${props => (props.darkMode ? 'white' : '#212121')};
 `
 
 export const HomeContainerItem = styled.div`
   display: flex;
   flex-direction: column;
   width: 80%;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `
 export const BannerItem = styled.div`
   background-image: url('https://assets.ccbp.in/frontend/react-js/nxt-watch-banner-bg.png');
@@ -36,6 +25,7 @@ export const BannerItem = styled.div`
   flex-direction: row;
   justify-content: space-between;
   padding: 15px;
+  min-width: 100%;
   min-height: 200px;
 `
 
@@ -77,16 +67,39 @@ export const SearchBarContainer = styled.div`
 export const SearchBar = styled.input`
   width: 320px;
   height: 28px;
+  background-color: transparent;
+  border-color: #606060;
+  border-width: 1px;
+  border-style: thick;
+  color: ${props => (props.darkMode ? 'white' : '#212121')};
 `
 export const SearchButton = styled.button`
-  width: 50px;
-  height: 25px;
+  background-color: ${props => (props.darkMode ? '#424242' : ' #ebebeb')}
+  color: #cccccc;
+  width: 80px;
+  height: 28px;
 `
 export const HomeMainContainer = styled.div`
-  background-color: #f4f4f4;
+  background-color: ${props => (props.darkMode ? '#212121' : 'white')};
   display: flex;
   flex-direction: column;
   padding: 10px;
+`
+export const NoResultsSearchView = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+export const SearchImage = styled.img`
+  width: 300px;
+  height: 250px;
+`
+export const SearchHead = styled.h1`
+  font-size: 20px;
+`
+export const Searchpara = styled.p`
+  color: #909090;
 `
 export const FailureView = styled.img`
   width: 200px;
@@ -99,8 +112,13 @@ export const FailurePara = styled.p`
   color: #909090;
 `
 export const Retry = styled.button`
-  background-color: #00306e;
+  background-color: #4f46e5;
   color: #ebebeb;
+  width: 100px;
+  height: 35px;
+  outline: none;
+  border-radius: 5px;
+  border: none;
 `
 export const VideosUnorderedList = styled.ul`
   display: flex;
@@ -108,6 +126,10 @@ export const VideosUnorderedList = styled.ul`
   justify-content: flex-start;
   flex-wrap: wrap;
   margin: none;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `
 export const VideoItemContainer = styled.li`
   display: flex;
@@ -120,6 +142,10 @@ export const VideoItemContainer = styled.li`
 export const VideoImage = styled.img`
   width: 300px;
   height: 300px;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `
 export const VideoTextDetails = styled.div`
   display: flex;

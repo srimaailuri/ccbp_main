@@ -4,8 +4,8 @@
 }
 
 .SearchIcon {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
 }
 .FailureContainer {
   display: flex;
@@ -16,4 +16,18 @@
 .closeBtn {
   width: 30px;
   height: 30px;
+}
+.SideItemStyle {
+  margin-top: 15px;
+  width: 20px;
+  height: 20px;
+}
+.sideBarText {
+  margin-left: 20px;
+  font-weight: 500;
+}
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
