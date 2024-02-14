@@ -1,0 +1,16 @@
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.FailureContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.SideItemStyle {
+  width: 100px;
+  height: 100px;
+}

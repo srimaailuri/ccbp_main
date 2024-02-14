@@ -153,7 +153,7 @@ class Home extends Component {
   )
 
   onRetry = () => {
-    this.setState({searchInput: ''}, this.getListOfVideosData())
+    this.setState({searchInput: ''}, this.getListOfVideosData)
   }
 
   renderFailureView = () => (

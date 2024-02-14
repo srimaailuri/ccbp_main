@@ -12,6 +12,8 @@ import Home from './components/Home'
 
 import Login from './components/Login'
 
+import Trending from './components/Trending'
+
 import ProtectedRoute from './components/ProtectedRoute'
 
 class App extends Component {
@@ -35,6 +37,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/login" component={Login} />
           <ProtectedRoute exact path="/" component={Home} />
+          <ProtectedRoute exact path="/trending" component={Trending} />
           <Route path="/not-found" component={NotFound} />
           <Redirect to="not-found" />
         </Switch>
