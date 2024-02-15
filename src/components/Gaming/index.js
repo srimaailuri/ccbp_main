@@ -58,7 +58,7 @@ const ListItem = props => {
   )
 }
 
-class Trending extends Component {
+class Gaming extends Component {
   state = {
     videosList: [],
     ApiStatus: ApiStatusConstants.initial,
@@ -179,4 +179,4 @@ class Trending extends Component {
   }
 }
 
-export default Trending
+export default Gaming
