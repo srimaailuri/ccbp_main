@@ -18,6 +18,8 @@ import Gaming from './components/Gaming'
 
 import ProtectedRoute from './components/ProtectedRoute'
 
+import SavedVideos from './components/savedVideos'
+
 class App extends Component {
   state = {
     darkMode: false,
@@ -41,6 +43,7 @@ class App extends Component {
           <ProtectedRoute exact path="/" component={Home} />
           <ProtectedRoute exact path="/trending" component={Trending} />
           <ProtectedRoute exact path="/Gaming" component={Gaming} />
+          <ProtectedRoute exact path="/savedVideos" component={SavedVideos} />
           <Route path="/not-found" component={NotFound} />
           <Redirect to="not-found" />
         </Switch>

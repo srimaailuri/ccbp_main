@@ -41,13 +41,11 @@ export const TrendingLogo = styled.img`
 export const TrendingHeader = styled.h1`
   color: black;
   margin-left: 10px;
-  max-width: 100vw;
   color: ${props => (props.darkMode ? 'white' : '#212121')};
 `
 export const TrendingListContainer = styled.ul`
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `
@@ -72,15 +70,16 @@ export const Retry = styled.button`
 `
 export const VideoListItem = styled.li`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
   color: ${props => (props.darkMode ? 'white' : '#212121')};
   margin: 20px;
+  width: 90%;
 `
 export const ChannelImg = styled.img`
-  width: 200px;
-  height: 300px;
+  width: 350px;
+  height: 200px;
   color: #ff0b37;
 `
 export const VideoListDetails = styled.div`

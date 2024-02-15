@@ -1,7 +1,7 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
-import {SiYoutubegaming} from 'react-icons/si'
+import {FaFire} from 'react-icons/fa'
 import {formatDistanceToNow} from 'date-fns'
 import Header from '../Header'
 import SideBarContainerView from '../SideBar'
@@ -36,21 +36,29 @@ const ApiStatusConstants = {
 
 const ListItem = props => {
   const {ItemDetails, darkMode} = props
-  const {viewCount, title, thumbnailUrl} = ItemDetails
+  const {channel, publishedAt, viewCount, title, thumbnailUrl} = ItemDetails
+  const time = formatDistanceToNow(new Date(publishedAt))
   return (
     <VideoListItem>
       <ChannelImg src={thumbnailUrl} />
       <VideoListDetails darkMode={darkMode}>
-        <Videotext fontSize="15px" fontWeight="bold">
+        <Videotext fontSize="25px" fontWeight="bold">
           {title}
         </Videotext>
-        <ChannelPara>{viewCount} views</ChannelPara>
+        <Videotext fontSize="15px">{channel.name}</Videotext>
+        <VideoCountDetails>
+          <ChannelPara>{viewCount} views</ChannelPara>
+          <ChannelPara>
+            <Dot> &#8226; </Dot>
+            {time} ago
+          </ChannelPara>
+        </VideoCountDetails>
       </VideoListDetails>
     </VideoListItem>
   )
 }
 
-class Gaming extends Component {
+class SavedVideos extends Component {
   state = {
     videosList: [],
     ApiStatus: ApiStatusConstants.initial,
@@ -69,7 +77,7 @@ class Gaming extends Component {
 
   getVideos = async () => {
     this.setState({ApiStatus: ApiStatusConstants.loading})
-    const apiUrl = `https://apis.ccbp.in/videos/gaming`
+    const apiUrl = `https://apis.ccbp.in/videos/trending`
     const jwtToken = Cookies.get('jwt_token')
     const options = {
       method: 'GET',
@@ -81,7 +89,9 @@ class Gaming extends Component {
     if (response.ok) {
       const data = await response.json()
       const updatedData = data.videos.map(eachVideo => ({
+        channel: eachVideo.channel,
         id: eachVideo.id,
+        publishedAt: eachVideo.published_at,
         thumbnailUrl: eachVideo.thumbnail_url,
         viewCount: eachVideo.view_count,
         title: eachVideo.title,
@@ -118,9 +128,9 @@ class Gaming extends Component {
       <TrendingContainer>
         <TrendingHeaderContainer darkMode={darkMode}>
           <LogoCont darkMode={darkMode}>
-            <SiYoutubegaming className="SideItemStyle" />
+            <FaFire className="SideItemStyle" />
           </LogoCont>
-          <TrendingHeader darkMode={darkMode}>Gaming</TrendingHeader>
+          <TrendingHeader darkMode={darkMode}>Saved Videos</TrendingHeader>
         </TrendingHeaderContainer>
         <TrendingListContainer>
           {videosList.map(eachItem => (
@@ -169,4 +179,4 @@ class Gaming extends Component {
   }
 }
 
-export default Gaming
+export default SavedVideos
