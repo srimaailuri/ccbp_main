@@ -2,6 +2,7 @@ import {AiFillHome} from 'react-icons/ai'
 import {FaFire} from 'react-icons/fa'
 import {SiYoutubegaming} from 'react-icons/si'
 import {MdPlaylistAdd} from 'react-icons/md'
+import {Link, withRouter} from 'react-router-dom'
 
 import {
   SideBarListItem,
@@ -14,10 +15,11 @@ import {
   ContactIconSection,
 } from './styledComponents'
 import ModeContext from '../Context'
+import './index.css'
 
 const SideBarMenu = [
   {
-    id: 'HOME',
+    id: '',
     Icon: <AiFillHome className="SideItemStyle" />,
     displaytext: 'Home',
   },
@@ -39,51 +41,61 @@ const SideBarMenu = [
 ]
 
 const SideBarItem = props => {
-  const {Details} = props
-  const {Icon, displaytext} = Details
+  const {Details, match} = props
+  const {id, Icon, displaytext} = Details
+  const active = match.path === id
   return (
-    <SideBarListItem>
-      {Icon}
-      <p className="sideBarText">{displaytext}</p>
-    </SideBarListItem>
+    <Link to={`/${id}`} className={`SideBarLink ${active}`}>
+      <SideBarListItem>
+        {Icon}
+        <p>{displaytext}</p>
+      </SideBarListItem>
+    </Link>
   )
 }
 
-const SideBarContainerView = () => (
-  <ModeContext.Consumer>
-    {value => {
-      const {darkMode} = value
-      return (
-        <MenuSideBar darkMode={darkMode}>
-          <SideBarItemsContainer>
-            {SideBarMenu.map(eachItem => (
-              <SideBarItem key={eachItem.id} Details={eachItem} />
-            ))}
-          </SideBarItemsContainer>
-          <ContactSection>
-            <ContactSectionHead>CONTACT US</ContactSectionHead>
-            <ContactIconSection>
-              <IconsImage
-                src="https://assets.ccbp.in/frontend/react-js/nxt-watch-facebook-logo-img.png"
-                alt="facebook logo"
-              />
-              <IconsImage
-                src="https://assets.ccbp.in/frontend/react-js/nxt-watch-twitter-logo-img.png"
-                alt="twitter logo"
-              />
-              <IconsImage
-                src="https://assets.ccbp.in/frontend/react-js/nxt-watch-linked-in-logo-img.png"
-                alt="linked in logo"
-              />
-            </ContactIconSection>
-            <ContactSectionPara>
-              Enjoy! Now to See your channels and recommendations!
-            </ContactSectionPara>
-          </ContactSection>
-        </MenuSideBar>
-      )
-    }}
-  </ModeContext.Consumer>
-)
+const SideBarContainerView = props => {
+  const {match} = props
+  return (
+    <ModeContext.Consumer>
+      {value => {
+        const {darkMode} = value
+        return (
+          <MenuSideBar darkMode={darkMode}>
+            <SideBarItemsContainer>
+              {SideBarMenu.map(eachItem => (
+                <SideBarItem
+                  key={eachItem.id}
+                  Details={eachItem}
+                  match={match}
+                />
+              ))}
+            </SideBarItemsContainer>
+            <ContactSection>
+              <ContactSectionHead>CONTACT US</ContactSectionHead>
+              <ContactIconSection>
+                <IconsImage
+                  src="https://assets.ccbp.in/frontend/react-js/nxt-watch-facebook-logo-img.png"
+                  alt="facebook logo"
+                />
+                <IconsImage
+                  src="https://assets.ccbp.in/frontend/react-js/nxt-watch-twitter-logo-img.png"
+                  alt="twitter logo"
+                />
+                <IconsImage
+                  src="https://assets.ccbp.in/frontend/react-js/nxt-watch-linked-in-logo-img.png"
+                  alt="linked in logo"
+                />
+              </ContactIconSection>
+              <ContactSectionPara>
+                Enjoy! Now to See your channels and recommendations!
+              </ContactSectionPara>
+            </ContactSection>
+          </MenuSideBar>
+        )
+      }}
+    </ModeContext.Consumer>
+  )
+}
 
-export default SideBarContainerView
+export default withRouter(SideBarContainerView)
