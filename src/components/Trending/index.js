@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 import {FaFire} from 'react-icons/fa'
@@ -36,25 +37,27 @@ const ApiStatusConstants = {
 
 const ListItem = props => {
   const {ItemDetails, darkMode} = props
-  const {channel, publishedAt, viewCount, title, thumbnailUrl} = ItemDetails
+  const {channel, publishedAt, viewCount, title, thumbnailUrl, id} = ItemDetails
   const time = formatDistanceToNow(new Date(publishedAt))
   return (
-    <VideoListItem>
-      <ChannelImg src={thumbnailUrl} />
-      <VideoListDetails darkMode={darkMode}>
-        <Videotext fontSize="25px" fontWeight="bold">
-          {title}
-        </Videotext>
-        <Videotext fontSize="15px">{channel.name}</Videotext>
-        <VideoCountDetails>
-          <ChannelPara>{viewCount} views</ChannelPara>
-          <ChannelPara>
-            <Dot> &#8226; </Dot>
-            {time} ago
-          </ChannelPara>
-        </VideoCountDetails>
-      </VideoListDetails>
-    </VideoListItem>
+    <Link to={`/videos/${id}`}>
+      <VideoListItem>
+        <ChannelImg src={thumbnailUrl} />
+        <VideoListDetails darkMode={darkMode}>
+          <Videotext fontSize="25px" fontWeight="bold">
+            {title}
+          </Videotext>
+          <Videotext fontSize="15px">{channel.name}</Videotext>
+          <VideoCountDetails>
+            <ChannelPara>{viewCount} views</ChannelPara>
+            <ChannelPara>
+              <Dot> &#8226; </Dot>
+              {time} ago
+            </ChannelPara>
+          </VideoCountDetails>
+        </VideoListDetails>
+      </VideoListItem>
+    </Link>
   )
 }
 

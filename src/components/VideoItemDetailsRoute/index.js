@@ -4,6 +4,7 @@ import Loader from 'react-loader-spinner'
 import {formatDistanceToNow} from 'date-fns'
 import {FaRegThumbsUp, FaRegThumbsDown, FaFire} from 'react-icons/fa'
 import {MdPlaylistAdd} from 'react-icons/md'
+import {withRouter} from 'react-router-dom'
 import Header from '../Header'
 import SideBarContainerView from '../SideBar'
 
@@ -18,6 +19,15 @@ import {
   LikeTitle,
   LikeBox,
   Shortdescription,
+  CountLikesContainer,
+  TopContainer,
+  BottomContainer,
+  HorizontalLine,
+  Logo,
+  DescriptionText,
+  Subscribers,
+  DescriptionContainer,
+  DescriptionTextContainer,
   LikesDisLikeSaveContainer,
   VideoCountDetails,
   ChannelPara,
@@ -79,7 +89,9 @@ class VideoItemDetails extends Component {
 
   getVideos = async () => {
     this.setState({ApiStatus: ApiStatusConstants.loading})
-    const apiUrl = `https://apis.ccbp.in/videos/trending`
+    const {match} = this.props
+    const {id} = match.params
+    const apiUrl = `https://apis.ccbp.in/videos/${id}`
     const jwtToken = Cookies.get('jwt_token')
     const options = {
       method: 'GET',
@@ -95,8 +107,10 @@ class VideoItemDetails extends Component {
         id: eachVideo.id,
         publishedAt: eachVideo.published_at,
         thumbnailUrl: eachVideo.thumbnail_url,
+        videoUrl: eachVideo.video_url,
         viewCount: eachVideo.view_count,
         title: eachVideo.title,
+        description: eachVideo.description,
       }))
       this.setState({
         ApiStatus: ApiStatusConstants.success,
@@ -126,30 +140,52 @@ class VideoItemDetails extends Component {
 
   renderSuccessView = darkMode => {
     const {videosList} = this.state
+    const {title, description, videoUrl, thumbnailUrl, channel} = videosList
     return (
       <TrendingContainer>
-        <YoutubeVideo src="https://www.youtube.com/watch?v=pT2ojWWjum8" />
-        <Shortdescription>title</Shortdescription>
-        <VideoCountDetails>
-          <ChannelPara>12 views</ChannelPara>
-          <ChannelPara>
-            <Dot> &#8226; </Dot>3 ago
-          </ChannelPara>
-        </VideoCountDetails>
-        <LikesDisLikeSaveContainer>
-          <LikeBox>
-            <FaRegThumbsUp />
-            <LikeTitle>Like</LikeTitle>
-          </LikeBox>
-          <LikeBox>
-            <FaRegThumbsDown />
-            <LikeTitle>Dislike</LikeTitle>
-          </LikeBox>
-          <LikeBox>
-            <MdPlaylistAdd />
-            <LikeTitle>Save</LikeTitle>
-          </LikeBox>
-        </LikesDisLikeSaveContainer>
+        <TopContainer>
+          <YoutubeVideo src={videoUrl} />
+          <Shortdescription>{title}</Shortdescription>
+          <CountLikesContainer>
+            <VideoCountDetails>
+              <ChannelPara>12 views</ChannelPara>
+              <ChannelPara>
+                <Dot> &#8226; </Dot>3 ago
+              </ChannelPara>
+            </VideoCountDetails>
+            <LikesDisLikeSaveContainer>
+              <LikeBox>
+                <FaRegThumbsUp />
+                <LikeTitle>Like</LikeTitle>
+              </LikeBox>
+              <LikeBox>
+                <FaRegThumbsDown />
+                <LikeTitle>Dislike</LikeTitle>
+              </LikeBox>
+              <LikeBox>
+                <MdPlaylistAdd />
+                <LikeTitle>Save</LikeTitle>
+              </LikeBox>
+            </LikesDisLikeSaveContainer>
+          </CountLikesContainer>
+        </TopContainer>
+        <BottomContainer>
+          <HorizontalLine />
+          <DescriptionContainer>
+            <Logo src={channel.profile_image_url} />
+            <DescriptionTextContainer>
+              <Subscribers>
+                <DescriptionText fontSize="20px">
+                  {channel.name}
+                </DescriptionText>
+                <DescriptionText fontSize="12px">
+                  {channel.subscribers_count}
+                </DescriptionText>
+              </Subscribers>
+              <DescriptionText fontSize="20px">{description}</DescriptionText>
+            </DescriptionTextContainer>
+          </DescriptionContainer>
+        </BottomContainer>
       </TrendingContainer>
     )
   }

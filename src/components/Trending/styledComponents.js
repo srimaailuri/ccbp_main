@@ -47,7 +47,6 @@ export const TrendingListContainer = styled.ul`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 `
 export const FailureView = styled.img`
   width: 200px;

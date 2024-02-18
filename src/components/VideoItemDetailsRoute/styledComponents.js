@@ -11,7 +11,7 @@ export const TrendingContainer = styled.div`
   justify-content: center;
   width: 100%;
   margin: 0px;
-  padding: 0px;
+  padding: 10px;
 `
 export const YoutubeVideo = styled.img`
   width: 90%;
@@ -60,6 +60,45 @@ export const VideoListItem = styled.li`
   margin: 20px;
   width: 90%;
 `
+
+export const TopContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
+export const BottomContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
+export const HorizontalLine = styled.div`
+  color: #64748b;
+`
+export const DescriptionContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+export const Logo = styled.img`
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+`
+export const DescriptionTextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 8px;
+`
+
+export const Subscribers = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+export const DescriptionText = styled.p`
+  font-size: ${props => props.fontSize};
+  padding: 0px;
+  margin: 0px;
+`
 export const ChannelImg = styled.img`
   width: 350px;
   height: 200px;
@@ -92,16 +131,25 @@ export const Dot = styled.span`
   padding-left: 5px;
   padding-right: 5px;
 `
+export const CountLikesContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`
 export const LikesDisLikeSaveContainer = styled.div`
   display: flex;
   flex-direction: row;
 `
 export const LikeTitle = styled.p`
-  color: #cccccc;
+  margin-left: 3px;
 `
 export const LikeBox = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 6px;
+  color: #606060;
 `
 export const Shortdescription = styled.p`
   font-size: 20px;
