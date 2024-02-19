@@ -12,11 +12,6 @@ import SideBarContainerView from '../SideBar'
 import ModeContext from '../Context'
 import {
   TrendingMainContainer,
-  VideoListItem,
-  ChannelImg,
-  VideoListDetails,
-  Videotext,
-  YoutubeVideo,
   LikeTitle,
   LikeBox,
   Shortdescription,
@@ -126,6 +121,7 @@ class VideoItemDetails extends Component {
     const {videosList} = this.state
     console.log(videosList)
     const {
+        id
       title,
       description,
       videoUrl,
@@ -133,9 +129,23 @@ class VideoItemDetails extends Component {
       channel,
       viewCount,
       publishedAt,
+      
     } = videosList
     const {name, profileImageUrl, subscriberCount} = channel
     const time = formatDistanceToNow(new Date(publishedAt))
+      .split(' ')
+      .slice(1)
+      .join(' ')
+
+    const onClickLikeButton = () => {
+    }
+
+    const onClickDisLikeButton = () => {
+    }
+
+    const onClickSaveButton = () => {
+    }
+
     return (
       <TrendingContainer>
         <TopContainer>
@@ -150,15 +160,15 @@ class VideoItemDetails extends Component {
               </ChannelPara>
             </VideoCountDetails>
             <LikesDisLikeSaveContainer>
-              <LikeBox>
+              <LikeBox type="button" onClick={onClickLikeButton}>
                 <FaRegThumbsUp />
                 <LikeTitle>Like</LikeTitle>
               </LikeBox>
-              <LikeBox>
+              <LikeBox type="button" onClick={onClickDisLikeButton}>
                 <FaRegThumbsDown />
                 <LikeTitle>Dislike</LikeTitle>
               </LikeBox>
-              <LikeBox>
+              <LikeBox type="button" onClick={onClickSaveButton}>
                 <MdPlaylistAdd />
                 <LikeTitle>Save</LikeTitle>
               </LikeBox>

@@ -146,13 +146,15 @@ export const LikesDisLikeSaveContainer = styled.div`
 export const LikeTitle = styled.p`
   margin-left: 3px;
 `
-export const LikeBox = styled.div`
+export const LikeBox = styled.button`
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   margin: 6px;
   color: #606060;
+  background-color: transparent;
+  border: none;
 `
 export const Shortdescription = styled.p`
   font-size: 20px;

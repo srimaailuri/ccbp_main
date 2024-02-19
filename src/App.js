@@ -25,19 +25,44 @@ import VideoItemDetailsRoute from './components/VideoItemDetailsRoute'
 class App extends Component {
   state = {
     darkMode: false,
+    savedVideosList: [],
+    likedVideosList: [],
+    dislikedVideosList: [],
   }
 
   changeMode = () => {
     this.setState(prevstate => ({darkMode: !prevstate.darkMode}))
   }
 
+  saveToVideos = videoDetails => {
+    const {id} = videoDetails
+    const {savedVideosList} = this.state
+    const savedListIds = []
+    if (savedVideosList.length !== 0) {
+    }
+
+    if (savedVideosList.includes(id)) {
+    }
+  }
+
   render() {
-    const {darkMode} = this.state
+    const {
+      darkMode,
+      savedVideosList,
+      likedVideosList,
+      dislikedVideosList,
+    } = this.state
     return (
       <ModeContext.Provider
         value={{
           darkMode,
           changeMode: this.changeMode,
+          savedVideosList,
+          likedVideosList,
+          dislikedVideosList,
+          savetoVideos: this.saveToVideos,
+          AddLikedVideos: this.AddLikedVideos,
+          AddDislikedVideos: this.AddDislikedVideos,
         }}
       >
         <Switch>
