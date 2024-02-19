@@ -117,82 +117,114 @@ class VideoItemDetails extends Component {
     </div>
   )
 
-  renderSuccessView = darkMode => {
-    const {videosList} = this.state
-    console.log(videosList)
-    const {
-        id
-      title,
-      description,
-      videoUrl,
-      thumbnailUrl,
-      channel,
-      viewCount,
-      publishedAt,
-      
-    } = videosList
-    const {name, profileImageUrl, subscriberCount} = channel
-    const time = formatDistanceToNow(new Date(publishedAt))
-      .split(' ')
-      .slice(1)
-      .join(' ')
+  renderSuccessView = darkMode => (
+    <ModeContext.Consumer>
+      {value => {
+        const {
+          savetoVideos,
+          AddLikedVideos,
+          AddDislikedVideos,
+          savedVideosList,
+          likedVideosList,
+          dislikedVideosList,
+        } = value
+        const {videosList} = this.state
+        const {
+          id,
+          title,
+          description,
+          videoUrl,
+          thumbnailUrl,
+          channel,
+          viewCount,
+          publishedAt,
+        } = videosList
+        const {name, profileImageUrl, subscriberCount} = channel
+        const time = formatDistanceToNow(new Date(publishedAt))
+          .split(' ')
+          .slice(1)
+          .join(' ')
 
-    const onClickLikeButton = () => {
-    }
+        const onClickLikeButton = () => {
+          AddLikedVideos(id)
+        }
 
-    const onClickDisLikeButton = () => {
-    }
+        const onClickDisLikeButton = () => {
+          AddDislikedVideos(id)
+        }
 
-    const onClickSaveButton = () => {
-    }
+        const onClickSaveButton = () => {
+          savedVideosList(videosList)
+        }
 
-    return (
-      <TrendingContainer>
-        <TopContainer>
-          <ReactPlayer url={videoUrl} width="100%" height="450px" controls />
-          <Shortdescription>{title}</Shortdescription>
-          <CountLikesContainer>
-            <VideoCountDetails>
-              <ChannelPara>{viewCount}</ChannelPara>
-              <ChannelPara>
-                <Dot> &#8226; </Dot>
-                {time}
-              </ChannelPara>
-            </VideoCountDetails>
-            <LikesDisLikeSaveContainer>
-              <LikeBox type="button" onClick={onClickLikeButton}>
-                <FaRegThumbsUp />
-                <LikeTitle>Like</LikeTitle>
-              </LikeBox>
-              <LikeBox type="button" onClick={onClickDisLikeButton}>
-                <FaRegThumbsDown />
-                <LikeTitle>Dislike</LikeTitle>
-              </LikeBox>
-              <LikeBox type="button" onClick={onClickSaveButton}>
-                <MdPlaylistAdd />
-                <LikeTitle>Save</LikeTitle>
-              </LikeBox>
-            </LikesDisLikeSaveContainer>
-          </CountLikesContainer>
-        </TopContainer>
-        <BottomContainer>
-          <HorizontalLine />
-          <DescriptionContainer>
-            <Logo src={profileImageUrl} />
-            <DescriptionTextContainer>
-              <Subscribers>
-                <DescriptionText fontSize="17px">{name}</DescriptionText>
-                <DescriptionText fontSize="14px">
-                  {subscriberCount} subscribers
-                </DescriptionText>
-              </Subscribers>
-              <DescriptionText fontSize="17px">{description}</DescriptionText>
-            </DescriptionTextContainer>
-          </DescriptionContainer>
-        </BottomContainer>
-      </TrendingContainer>
-    )
-  }
+        return (
+          <TrendingContainer>
+            <TopContainer>
+              <ReactPlayer
+                url={videoUrl}
+                width="100%"
+                height="450px"
+                controls
+              />
+              <Shortdescription>{title}</Shortdescription>
+              <CountLikesContainer>
+                <VideoCountDetails>
+                  <ChannelPara>{viewCount}</ChannelPara>
+                  <ChannelPara>
+                    <Dot> &#8226; </Dot>
+                    {time}
+                  </ChannelPara>
+                </VideoCountDetails>
+                <LikesDisLikeSaveContainer>
+                  <LikeBox
+                    type="button"
+                    onClick={onClickLikeButton}
+                    value={likedVideosList.includes(id)}
+                  >
+                    <FaRegThumbsUp />
+                    <LikeTitle>Like</LikeTitle>
+                  </LikeBox>
+                  <LikeBox
+                    type="button"
+                    onClick={onClickDisLikeButton}
+                    value={dislikedVideosList.includes(id)}
+                  >
+                    <FaRegThumbsDown />
+                    <LikeTitle>Dislike</LikeTitle>
+                  </LikeBox>
+                  <LikeBox
+                    type="button"
+                    onClick={onClickSaveButton}
+                    value={savedVideosList.includes(id)}
+                  >
+                    <MdPlaylistAdd />
+                    <LikeTitle>Save</LikeTitle>
+                  </LikeBox>
+                </LikesDisLikeSaveContainer>
+              </CountLikesContainer>
+            </TopContainer>
+            <BottomContainer>
+              <HorizontalLine />
+              <DescriptionContainer>
+                <Logo src={profileImageUrl} />
+                <DescriptionTextContainer>
+                  <Subscribers>
+                    <DescriptionText fontSize="17px">{name}</DescriptionText>
+                    <DescriptionText fontSize="14px">
+                      {subscriberCount} subscribers
+                    </DescriptionText>
+                  </Subscribers>
+                  <DescriptionText fontSize="17px">
+                    {description}
+                  </DescriptionText>
+                </DescriptionTextContainer>
+              </DescriptionContainer>
+            </BottomContainer>
+          </TrendingContainer>
+        )
+      }}
+    </ModeContext.Consumer>
+  )
 
   renderMainContainer = darkMode => {
     const {ApiStatus} = this.state

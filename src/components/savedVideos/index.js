@@ -122,28 +122,32 @@ class SavedVideos extends Component {
     </div>
   )
 
-  renderSuccessView = darkMode => {
-    const {videosList} = this.state
-    return (
-      <TrendingContainer>
-        <TrendingHeaderContainer darkMode={darkMode}>
-          <LogoCont darkMode={darkMode}>
-            <FaFire className="SideItemStyle" />
-          </LogoCont>
-          <TrendingHeader darkMode={darkMode}>Saved Videos</TrendingHeader>
-        </TrendingHeaderContainer>
-        <TrendingListContainer>
-          {videosList.map(eachItem => (
-            <ListItem
-              key={eachItem.id}
-              ItemDetails={eachItem}
-              darkMode={darkMode}
-            />
-          ))}
-        </TrendingListContainer>
-      </TrendingContainer>
-    )
-  }
+  renderSuccessView = darkMode => (
+    <ModeContext.Consumer>
+      {value => {
+        const {savedVideosList} = value
+        return (
+          <TrendingContainer>
+            <TrendingHeaderContainer darkMode={darkMode}>
+              <LogoCont darkMode={darkMode}>
+                <FaFire className="SideItemStyle" />
+              </LogoCont>
+              <TrendingHeader darkMode={darkMode}>Saved Videos</TrendingHeader>
+            </TrendingHeaderContainer>
+            <TrendingListContainer>
+              {savedVideosList.map(eachItem => (
+                <ListItem
+                  key={eachItem.id}
+                  ItemDetails={eachItem}
+                  darkMode={darkMode}
+                />
+              ))}
+            </TrendingListContainer>
+          </TrendingContainer>
+        )
+      }}
+    </ModeContext.Consumer>
+  )
 
   renderMainContainer = darkMode => {
     const {ApiStatus} = this.state

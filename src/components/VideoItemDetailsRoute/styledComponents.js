@@ -152,9 +152,11 @@ export const LikeBox = styled.button`
   justify-content: center;
   align-items: center;
   margin: 6px;
-  color: #606060;
+  outline: none;
+  cursor: pointer;
   background-color: transparent;
   border: none;
+  color: ${props => (props.value === true ? '#2563eb' : '#64748b')};
 `
 export const Shortdescription = styled.p`
   font-size: 20px;

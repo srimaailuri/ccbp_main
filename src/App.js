@@ -37,11 +37,49 @@ class App extends Component {
   saveToVideos = videoDetails => {
     const {id} = videoDetails
     const {savedVideosList} = this.state
-    const savedListIds = []
+    let savedListIds = []
     if (savedVideosList.length !== 0) {
+      savedListIds = savedVideosList.map(each => each.id)
     }
 
-    if (savedVideosList.includes(id)) {
+    if (savedListIds.includes(id)) {
+      this.setState({
+        savedVideosList: savedVideosList.filter(each => each.id !== id),
+      })
+    } else {
+      this.setState({savedVideosList: [...savedVideosList, videoDetails]})
+    }
+  }
+
+  AddLikedVideos = id => {
+    const {likedVideosList, dislikedVideosList} = this.state
+    if (dislikedVideosList.includes(id)) {
+      this.setState({
+        dislikedVideosList: dislikedVideosList.filter(eachId => eachId !== id),
+      })
+    }
+    if (likedVideosList.includes(id)) {
+      this.setState({
+        likedVideosList: likedVideosList.filter(eachId => eachId !== id),
+      })
+    } else {
+      this.setState({likedVideosList: [...likedVideosList, id]})
+    }
+  }
+
+  AddDislikedVideos = id => {
+    const {likedVideosList, dislikedVideosList} = this.state
+    if (likedVideosList.includes(id)) {
+      this.setState({
+        likedVideosList: likedVideosList.filter(eachId => eachId !== id),
+      })
+    }
+    if (dislikedVideosList.includes(id)) {
+      this.setState({
+        dislikedVideosList: dislikedVideosList.filter(eachId => eachId !== id),
+      })
+    } else {
+      this.setState({dislikedVideosList: [...dislikedVideosList, id]})
     }
   }
 
