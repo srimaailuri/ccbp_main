@@ -71,16 +71,17 @@ export const BottomContainer = styled.div`
   flex-direction: column;
   justify-content: center;
 `
-export const HorizontalLine = styled.div`
-  color: #64748b;
+export const HorizontalLine = styled.hr`
+  margin: 25px 0;
+  border: 1px solid #cccccc;
 `
 export const DescriptionContainer = styled.div`
   display: flex;
   flex-direction: row;
 `
 export const Logo = styled.img`
-  width: 80px;
-  height: 80px;
+  width: 50px;
+  height: 50px;
   border-radius: 10px;
 `
 export const DescriptionTextContainer = styled.div`
@@ -93,6 +94,7 @@ export const DescriptionTextContainer = styled.div`
 export const Subscribers = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 15px;
 `
 export const DescriptionText = styled.p`
   font-size: ${props => props.fontSize};
@@ -135,6 +137,7 @@ export const CountLikesContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 `
 export const LikesDisLikeSaveContainer = styled.div`
   display: flex;

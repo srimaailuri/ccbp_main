@@ -5,6 +5,7 @@ import {formatDistanceToNow} from 'date-fns'
 import {FaRegThumbsUp, FaRegThumbsDown, FaFire} from 'react-icons/fa'
 import {MdPlaylistAdd} from 'react-icons/md'
 import {withRouter} from 'react-router-dom'
+import ReactPlayer from 'react-player'
 import Header from '../Header'
 import SideBarContainerView from '../SideBar'
 
@@ -46,29 +47,20 @@ const ApiStatusConstants = {
   failure: 'FAILURE',
 }
 
-const ListItem = props => {
-  const {ItemDetails, darkMode} = props
-  const {channel, publishedAt, viewCount, title, thumbnailUrl} = ItemDetails
-  const time = formatDistanceToNow(new Date(publishedAt))
-  return (
-    <VideoListItem>
-      <ChannelImg src={thumbnailUrl} />
-      <VideoListDetails darkMode={darkMode}>
-        <Videotext fontSize="25px" fontWeight="bold">
-          {title}
-        </Videotext>
-        <Videotext fontSize="15px">{channel.name}</Videotext>
-        <VideoCountDetails>
-          <ChannelPara>{viewCount} views</ChannelPara>
-          <ChannelPara>
-            <Dot> &#8226; </Dot>
-            {time} ago
-          </ChannelPara>
-        </VideoCountDetails>
-      </VideoListDetails>
-    </VideoListItem>
-  )
-}
+const FormatVideoDetails = videoDetails => ({
+  id: videoDetails.id,
+  title: videoDetails.title,
+  videoUrl: videoDetails.video_url,
+  thumbnailUrl: videoDetails.thumbnail_url,
+  channel: {
+    name: videoDetails.channel.name,
+    profileImageUrl: videoDetails.channel.profile_image_url,
+    subscriberCount: videoDetails.channel.subscriber_count,
+  },
+  viewCount: videoDetails.view_count,
+  publishedAt: videoDetails.published_at,
+  description: videoDetails.description,
+})
 
 class VideoItemDetails extends Component {
   state = {
@@ -102,16 +94,8 @@ class VideoItemDetails extends Component {
     const response = await fetch(apiUrl, options)
     if (response.ok) {
       const data = await response.json()
-      const updatedData = data.videos.map(eachVideo => ({
-        channel: eachVideo.channel,
-        id: eachVideo.id,
-        publishedAt: eachVideo.published_at,
-        thumbnailUrl: eachVideo.thumbnail_url,
-        videoUrl: eachVideo.video_url,
-        viewCount: eachVideo.view_count,
-        title: eachVideo.title,
-        description: eachVideo.description,
-      }))
+      const videoDetails = data.video_details
+      const updatedData = FormatVideoDetails(videoDetails)
       this.setState({
         ApiStatus: ApiStatusConstants.success,
         videosList: updatedData,
@@ -140,17 +124,29 @@ class VideoItemDetails extends Component {
 
   renderSuccessView = darkMode => {
     const {videosList} = this.state
-    const {title, description, videoUrl, thumbnailUrl, channel} = videosList
+    console.log(videosList)
+    const {
+      title,
+      description,
+      videoUrl,
+      thumbnailUrl,
+      channel,
+      viewCount,
+      publishedAt,
+    } = videosList
+    const {name, profileImageUrl, subscriberCount} = channel
+    const time = formatDistanceToNow(new Date(publishedAt))
     return (
       <TrendingContainer>
         <TopContainer>
-          <YoutubeVideo src={videoUrl} />
+          <ReactPlayer url={videoUrl} width="100%" height="450px" controls />
           <Shortdescription>{title}</Shortdescription>
           <CountLikesContainer>
             <VideoCountDetails>
-              <ChannelPara>12 views</ChannelPara>
+              <ChannelPara>{viewCount}</ChannelPara>
               <ChannelPara>
-                <Dot> &#8226; </Dot>3 ago
+                <Dot> &#8226; </Dot>
+                {time}
               </ChannelPara>
             </VideoCountDetails>
             <LikesDisLikeSaveContainer>
@@ -172,17 +168,15 @@ class VideoItemDetails extends Component {
         <BottomContainer>
           <HorizontalLine />
           <DescriptionContainer>
-            <Logo src={channel.profile_image_url} />
+            <Logo src={profileImageUrl} />
             <DescriptionTextContainer>
               <Subscribers>
-                <DescriptionText fontSize="20px">
-                  {channel.name}
-                </DescriptionText>
-                <DescriptionText fontSize="12px">
-                  {channel.subscribers_count}
+                <DescriptionText fontSize="17px">{name}</DescriptionText>
+                <DescriptionText fontSize="14px">
+                  {subscriberCount} subscribers
                 </DescriptionText>
               </Subscribers>
-              <DescriptionText fontSize="20px">{description}</DescriptionText>
+              <DescriptionText fontSize="17px">{description}</DescriptionText>
             </DescriptionTextContainer>
           </DescriptionContainer>
         </BottomContainer>
