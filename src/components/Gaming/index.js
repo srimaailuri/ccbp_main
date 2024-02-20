@@ -3,8 +3,10 @@ import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 import {SiYoutubegaming} from 'react-icons/si'
 import {formatDistanceToNow} from 'date-fns'
+import {Link} from 'react-router-dom'
 import Header from '../Header'
 import SideBarContainerView from '../SideBar'
+import './index.css'
 
 import ModeContext from '../Context'
 import {
@@ -36,17 +38,19 @@ const ApiStatusConstants = {
 
 const ListItem = props => {
   const {ItemDetails, darkMode} = props
-  const {viewCount, title, thumbnailUrl} = ItemDetails
+  const {id, viewCount, title, thumbnailUrl} = ItemDetails
   return (
-    <VideoListItem>
-      <ChannelImg src={thumbnailUrl} />
-      <VideoListDetails darkMode={darkMode}>
-        <Videotext fontSize="15px" fontWeight="bold">
-          {title}
-        </Videotext>
-        <ChannelPara>{viewCount} views</ChannelPara>
-      </VideoListDetails>
-    </VideoListItem>
+    <Link to={`/videos/${id}`} className="LinkContainer">
+      <VideoListItem>
+        <ChannelImg src={thumbnailUrl} />
+        <VideoListDetails darkMode={darkMode}>
+          <Videotext fontSize="15px" fontWeight="bold">
+            {title}
+          </Videotext>
+          <ChannelPara>{viewCount} views</ChannelPara>
+        </VideoListDetails>
+      </VideoListItem>
+    </Link>
   )
 }
 
@@ -118,7 +122,7 @@ class Gaming extends Component {
       <TrendingContainer>
         <TrendingHeaderContainer darkMode={darkMode}>
           <LogoCont darkMode={darkMode}>
-            <SiYoutubegaming className="SideItemStyle" />
+            <SiYoutubegaming />
           </LogoCont>
           <TrendingHeader darkMode={darkMode}>Gaming</TrendingHeader>
         </TrendingHeaderContainer>

@@ -28,6 +28,8 @@ import {
   LogoCont,
 } from './styledComponents'
 
+import './index.css'
+
 const ApiStatusConstants = {
   initial: 'INITIAL',
   loading: 'LOADING',
@@ -40,7 +42,7 @@ const ListItem = props => {
   const {channel, publishedAt, viewCount, title, thumbnailUrl, id} = ItemDetails
   const time = formatDistanceToNow(new Date(publishedAt))
   return (
-    <Link to={`/videos/${id}`}>
+    <Link to={`/videos/${id}`} className="LinkContainer">
       <VideoListItem>
         <ChannelImg src={thumbnailUrl} />
         <VideoListDetails darkMode={darkMode}>
@@ -131,7 +133,7 @@ class Trending extends Component {
       <TrendingContainer>
         <TrendingHeaderContainer darkMode={darkMode}>
           <LogoCont darkMode={darkMode}>
-            <FaFire className="SideItemStyle" />
+            <FaFire />
           </LogoCont>
           <TrendingHeader darkMode={darkMode}>Trending</TrendingHeader>
         </TrendingHeaderContainer>

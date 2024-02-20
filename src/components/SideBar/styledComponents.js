@@ -9,6 +9,7 @@ export const MenuSideBar = styled.div`
   height: 100vh;
   background-color: ${props => (props.darkMode ? '#383838' : 'white')};
   color: ${props => (props.darkMode ? 'white' : '#212121')};
+  position: fixed;
 
   @media screen and (max-width: 768px) {
     display: none;
@@ -53,6 +54,11 @@ export const SideBarListItem = styled.li`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  color: ${props => (props.darkMode ? 'white' : '#212121')};
   padding-left: 20px;
   width: 100%;
+`
+
+export const SideText = styled.p`
+  margin-left: 5px;
 `

@@ -139,6 +139,8 @@ class VideoItemDetails extends Component {
           viewCount,
           publishedAt,
         } = videosList
+        const savedListIds = savedVideosList.map(each => each.id)
+        const saveButtonText = savedListIds.includes(id) ? 'Saved' : 'Save'
         const {name, profileImageUrl, subscriberCount} = channel
         const time = formatDistanceToNow(new Date(publishedAt))
           .split(' ')
@@ -154,7 +156,7 @@ class VideoItemDetails extends Component {
         }
 
         const onClickSaveButton = () => {
-          savedVideosList(videosList)
+          savetoVideos(videosList)
         }
 
         return (
@@ -198,7 +200,7 @@ class VideoItemDetails extends Component {
                     value={savedVideosList.includes(id)}
                   >
                     <MdPlaylistAdd />
-                    <LikeTitle>Save</LikeTitle>
+                    <LikeTitle>{saveButtonText}</LikeTitle>
                   </LikeBox>
                 </LikesDisLikeSaveContainer>
               </CountLikesContainer>

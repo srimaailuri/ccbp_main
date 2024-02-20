@@ -52,7 +52,7 @@ const ApiStatusConstants = {
 }
 
 const VideoItem = props => {
-  const {videoItemDetails} = props
+  const {videoItemDetails, darkMode} = props
   const {
     id,
     title,
@@ -64,30 +64,25 @@ const VideoItem = props => {
 
   const time = formatDistanceToNow(new Date(publishedAt))
   return (
-    <ModeContext.Consumer>
-      {value => {
-        const {darkMode} = value
-        return (
-          <VideoItemContainer>
-            <VideoImage src={thumbnailUrl} />
-            <VideoTextDetails>
-              <ChannelLogo src={channel.profile_image_url} />
-              <ChannelDetails>
-                <ChannelPara>{title}</ChannelPara>
-                <ChannelPara color=" #606060">{channel.name}</ChannelPara>
-                <ChannelCount>
-                  <ChannelPara color="  #606060">{viewCount} views</ChannelPara>
-                  <ChannelPara color="  #606060">
-                    <Dot> &#8226; </Dot>
-                    {time} ago
-                  </ChannelPara>
-                </ChannelCount>
-              </ChannelDetails>
-            </VideoTextDetails>
-          </VideoItemContainer>
-        )
-      }}
-    </ModeContext.Consumer>
+    <Link to={`/videos/${id}`} className="LinkContainer">
+      <VideoItemContainer>
+        <VideoImage src={thumbnailUrl} />
+        <VideoTextDetails darkMode={darkMode}>
+          <ChannelLogo src={channel.profile_image_url} />
+          <ChannelDetails>
+            <ChannelPara>{title}</ChannelPara>
+            <ChannelPara color=" #606060">{channel.name}</ChannelPara>
+            <ChannelCount>
+              <ChannelPara color="  #606060">{viewCount} views</ChannelPara>
+              <ChannelPara color="  #606060">
+                <Dot> &#8226; </Dot>
+                {time} ago
+              </ChannelPara>
+            </ChannelCount>
+          </ChannelDetails>
+        </VideoTextDetails>
+      </VideoItemContainer>
+    </Link>
   )
 }
 
@@ -156,7 +151,7 @@ class Home extends Component {
     this.setState({searchInput: ''}, this.getListOfVideosData)
   }
 
-  renderFailureView = () => (
+  renderFailureView = darkMode => (
     <div className="FailureContainer">
       <FailureView src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png" />
       <FailureHead>Oops! Something Went Wrong</FailureHead>
@@ -167,14 +162,18 @@ class Home extends Component {
     </div>
   )
 
-  renderVideosList = () => {
+  renderVideosList = darkMode => {
     const {VideosList} = this.state
     const VideosListLength = VideosList.length > 0
     console.log(VideosListLength)
     return VideosListLength ? (
       <VideosUnorderedList>
         {VideosList.map(eachItem => (
-          <VideoItem key={eachItem.id} videoItemDetails={eachItem} />
+          <VideoItem
+            key={eachItem.id}
+            videoItemDetails={eachItem}
+            darkMode={darkMode}
+          />
         ))}
       </VideosUnorderedList>
     ) : (
@@ -196,15 +195,15 @@ class Home extends Component {
     this.setState({searchInput: event.target.value})
   }
 
-  renderMainContainer = () => {
+  renderMainContainer = darkMode => {
     const {ApiStatus} = this.state
     switch (ApiStatus) {
       case ApiStatusConstants.loading:
         return this.renderLoader()
       case ApiStatusConstants.success:
-        return this.renderVideosList()
+        return this.renderVideosList(darkMode)
       case ApiStatusConstants.failure:
-        return this.renderFailureView()
+        return this.renderFailureView(darkMode)
       default:
         return null
     }
@@ -251,7 +250,7 @@ class Home extends Component {
                         <IoIosSearch className="SearchIcon" />
                       </SearchButton>
                     </SearchBarContainer>
-                    {this.renderMainContainer()}
+                    {this.renderMainContainer(darkMode)}
                   </HomeMainContainer>
                 </HomeContainerItem>
               </HomeContainer>

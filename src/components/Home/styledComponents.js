@@ -137,7 +137,7 @@ export const VideoItemContainer = styled.li`
   width: 300px;
   height: 300px;
   margin-right: auto;
-  margin-bottom: 20px;
+  margin: 20px;
 `
 export const VideoImage = styled.img`
   width: 300px;
@@ -151,6 +151,7 @@ export const VideoTextDetails = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 5px;
+  color: ${props => (props.darkMode ? '#ffffff' : '#212121')};
 `
 export const ChannelLogo = styled.img`
   width: 40px;

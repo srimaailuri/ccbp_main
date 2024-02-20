@@ -13,6 +13,7 @@ import {
   IconsImage,
   ContactSectionPara,
   ContactIconSection,
+  SideText,
 } from './styledComponents'
 import ModeContext from '../Context'
 import './index.css'
@@ -41,14 +42,16 @@ const SideBarMenu = [
 ]
 
 const SideBarItem = props => {
-  const {Details, match} = props
+  const {Details, match, darkMode} = props
   const {id, Icon, displaytext} = Details
-  const active = match.path === id
+  const active = true
+  console.log(match)
+
   return (
     <Link to={`/${id}`} className={`SideBarLink ${active}`}>
-      <SideBarListItem>
+      <SideBarListItem darkMode={darkMode}>
         {Icon}
-        <p>{displaytext}</p>
+        <SideText>{displaytext}</SideText>
       </SideBarListItem>
     </Link>
   )
@@ -68,6 +71,7 @@ const SideBarContainerView = props => {
                   key={eachItem.id}
                   Details={eachItem}
                   match={match}
+                  darkMode={darkMode}
                 />
               ))}
             </SideBarItemsContainer>

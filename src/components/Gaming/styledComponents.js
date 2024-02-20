@@ -28,7 +28,7 @@ export const LogoCont = styled.p`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding-top: 5px;
+  align-items: center;
   background-color: ${props => (props.darkMode ? '#212121' : '#d7dfe9')};
   color: #ff0b37;
   width: 60px;

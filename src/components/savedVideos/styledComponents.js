@@ -8,7 +8,6 @@ export const TrendingMainContainer = styled.div`
 export const TrendingContainer = styled.ul`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   width: 100%;
   margin: 0px;
   padding: 0px;
@@ -46,7 +45,6 @@ export const TrendingHeader = styled.h1`
 export const TrendingListContainer = styled.ul`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 `
 export const FailureView = styled.img`
