@@ -59,7 +59,7 @@ export const LoginBtn = styled.button`
   width: 250px;
   height: 30px;
   background-color: #3b82f6;
-  color: white;
+  color: #ffffff;
   margin-top: 5px;
   outline: none;
   border: none;

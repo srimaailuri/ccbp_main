@@ -68,7 +68,7 @@ class Login extends Component {
   }
 
   render() {
-    const {errMsg, showErrorMsg, Username, Password} = this.state
+    const {errMsg, showErrorMsg, Username, Password, showPassword} = this.state
     const jwtToken = Cookies.get('jwt_token')
     if (jwtToken !== undefined) {
       return <Redirect to="/" />
@@ -78,7 +78,7 @@ class Login extends Component {
         <LoginForm onSubmit={this.onSubmitForm}>
           <Logo
             src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-            alt="NxtWatch"
+            alt="website logo"
           />
           <InputContainer>
             <Label htmlFor="username" color="#94a3b8">
@@ -100,7 +100,7 @@ class Login extends Component {
             <Input
               id="password"
               placeholder="Password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               onChange={this.onChangePassword}
               value={Password}
             />
@@ -118,7 +118,7 @@ class Login extends Component {
           </CheckBoxContainer>
 
           <LoginBtn type="submit">Login</LoginBtn>
-          {showErrorMsg && <p>{errMsg}</p>}
+          {showErrorMsg && <p>*{errMsg}</p>}
         </LoginForm>
       </LoginContainer>
     )
