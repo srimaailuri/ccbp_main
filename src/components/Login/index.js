@@ -108,11 +108,11 @@ class Login extends Component {
 
           <CheckBoxContainer>
             <CheckBoxInput
-              htmlFor="checkbox"
+              id="checkbox"
               type="checkbox"
               onChange={this.updateCheckBox}
             />
-            <Label color="#1e293b" id="checkbox">
+            <Label color="#1e293b" htmlFor="checkbox">
               Show Password
             </Label>
           </CheckBoxContainer>

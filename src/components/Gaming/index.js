@@ -42,7 +42,7 @@ const ListItem = props => {
   return (
     <Link to={`/videos/${id}`} className="LinkContainer">
       <VideoListItem>
-        <ChannelImg src={thumbnailUrl} />
+        <ChannelImg src={thumbnailUrl} alt="video thumbnail" />
         <VideoListDetails darkMode={darkMode}>
           <Videotext fontSize="15px" fontWeight="bold">
             {title}

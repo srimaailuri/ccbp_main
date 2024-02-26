@@ -31,7 +31,7 @@ export const ContactSection = styled.div`
   padding: 15px;
 `
 
-export const ContactSectionHead = styled.h1`
+export const ContactSectionHead = styled.p`
   font-family: 'Roboto';
   font-size: 20px;
 `
