@@ -64,8 +64,8 @@ const VideoItem = props => {
 
   const time = formatDistanceToNow(new Date(publishedAt))
   return (
-    <Link to={`/videos/${id}`} className="LinkContainer">
-      <VideoItemContainer>
+    <VideoItemContainer>
+      <Link to={`/videos/${id}`} className="LinkContainer">
         <VideoImage src={thumbnailUrl} />
         <VideoTextDetails darkMode={darkMode}>
           <ChannelLogo src={channel.profile_image_url} />
@@ -81,8 +81,8 @@ const VideoItem = props => {
             </ChannelCount>
           </ChannelDetails>
         </VideoTextDetails>
-      </VideoItemContainer>
-    </Link>
+      </Link>
+    </VideoItemContainer>
   )
 }
 

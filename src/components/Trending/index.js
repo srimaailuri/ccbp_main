@@ -137,7 +137,7 @@ class Trending extends Component {
           </LogoCont>
           <TrendingHeader darkMode={darkMode}>Trending</TrendingHeader>
         </TrendingHeaderContainer>
-        <TrendingListContainer>
+        <TrendingListContainer data-testid="trending">
           {videosList.map(eachItem => (
             <ListItem
               key={eachItem.id}

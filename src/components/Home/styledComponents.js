@@ -135,13 +135,13 @@ export const VideoItemContainer = styled.li`
   display: flex;
   flex-direction: column;
   width: 300px;
-  height: 300px;
+  height: 350px;
   margin-right: auto;
   margin: 20px;
 `
 export const VideoImage = styled.img`
-  width: 300px;
-  height: 300px;
+  width: 100%;
+  height: 250px;
 
   @media screen and (max-width: 768px) {
     width: 100%;
