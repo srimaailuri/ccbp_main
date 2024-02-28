@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const TrendingMainContainer = styled.div`
   display: flex;
   flex-direction: row;
-  background-color: ${props => (props.darkMode ? '#212121' : '#f4f4f4')};
+  background-color: ${props => (props.darkMode ? '#0f0f0f' : '#f4f4f4')};
 `
 export const TrendingContainer = styled.ul`
   display: flex;
@@ -13,8 +13,32 @@ export const TrendingContainer = styled.ul`
   padding: 0px;
 `
 
+export const NoSearch = styled.div`
+  background-color: ${props => (props.darkMode ? '#0f0f0f' : '#f4f4f4')};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+`
+
+export const NoSearchResultsImage = styled.img`
+  width: 250px;
+  height: 250px;
+`
+
+export const NoSavedVideos = styled.h1`
+  color: ${props => (props.darkMode ? '#f4f4f4' : '#0f0f0f')};
+`
+
+export const TextNoSavedVideos = styled.p`
+  color: ${props => (props.darkMode ? '#f4f4f4' : '#0f0f0f')};
+`
+
 export const TrendingHeaderContainer = styled.div`
-  background-color: ${props => (props.darkMode ? '#212121' : '#ebebeb')};
+  background-color: ${props => (props.darkMode ? '#0f0f0f' : '#ebebeb')};
   display: flex;
   flex-direction: row;
   justify-content: flex-start;

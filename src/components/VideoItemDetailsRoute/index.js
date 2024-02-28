@@ -108,10 +108,13 @@ class VideoItemDetails extends Component {
 
   renderFailureView = darkMode => (
     <div className="FailureContainer">
-      <FailureView src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png" />
+      <FailureView
+        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png"
+        alt="failure view"
+      />
       <FailureHead>Oops! Something Went Wrong</FailureHead>
       <FailurePara>
-        We are having some trouble to complete your request.Please try again.
+        We are having some trouble to complete your request. Please try again.
       </FailurePara>
       <Retry onClick={this.onRetry}>Retry</Retry>
     </div>
@@ -160,7 +163,7 @@ class VideoItemDetails extends Component {
         }
 
         return (
-          <TrendingContainer>
+          <TrendingContainer data-testid="videoItemDetails">
             <TopContainer>
               <ReactPlayer
                 url={videoUrl}
@@ -184,7 +187,7 @@ class VideoItemDetails extends Component {
                     value={likedVideosList.includes(id)}
                   >
                     <FaRegThumbsUp />
-                    <LikeTitle>Like</LikeTitle>
+                    Like
                   </LikeBox>
                   <LikeBox
                     type="button"
@@ -192,7 +195,7 @@ class VideoItemDetails extends Component {
                     value={dislikedVideosList.includes(id)}
                   >
                     <FaRegThumbsDown />
-                    <LikeTitle>Dislike</LikeTitle>
+                    Dislike
                   </LikeBox>
                   <LikeBox
                     type="button"
@@ -200,7 +203,7 @@ class VideoItemDetails extends Component {
                     value={savedVideosList.includes(id)}
                   >
                     <MdPlaylistAdd />
-                    <LikeTitle>{saveButtonText}</LikeTitle>
+                    {saveButtonText}
                   </LikeBox>
                 </LikesDisLikeSaveContainer>
               </CountLikesContainer>
@@ -208,7 +211,7 @@ class VideoItemDetails extends Component {
             <BottomContainer>
               <HorizontalLine />
               <DescriptionContainer>
-                <Logo src={profileImageUrl} />
+                <Logo src={profileImageUrl} alt="channel logo" />
                 <DescriptionTextContainer>
                   <Subscribers>
                     <DescriptionText fontSize="17px">{name}</DescriptionText>

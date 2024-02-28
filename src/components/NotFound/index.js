@@ -28,12 +28,12 @@ class NotFound extends Component {
               <NotFoundContainer>
                 <SideBarContainerView />
                 <PageNotFound darkMode={darkMode}>
-                  <PageNotFoundImage src={NotFoundImgUrl} alt="NotFoundImage" />
+                  <PageNotFoundImage src={NotFoundImgUrl} alt="not found" />
                   <PageText fontsize="20px" fontWeight="bold">
                     Page Not Found
                   </PageText>
                   <PageText fontsize="10px">
-                    We are sorry,the page you requested could not be found
+                    we are sorry, the page you requested could not be found.
                   </PageText>
                 </PageNotFound>
               </NotFoundContainer>

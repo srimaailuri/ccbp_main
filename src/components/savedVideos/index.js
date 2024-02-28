@@ -25,6 +25,10 @@ import {
   TrendingListContainer,
   Dot,
   LogoCont,
+  NoSearch,
+  NoSearchResultsImage,
+  NoSavedVideos,
+  TextNoSavedVideos,
 } from './styledComponents'
 
 const ApiStatusConstants = {
@@ -39,8 +43,8 @@ const ListItem = props => {
   const {channel, publishedAt, viewCount, title, thumbnailUrl} = ItemDetails
   const time = formatDistanceToNow(new Date(publishedAt))
   return (
-    <VideoListItem>
-      <ChannelImg src={thumbnailUrl} />
+    <VideoListItem data-testid="savedVideos">
+      <ChannelImg src={thumbnailUrl} alt="video thumbnail" />
       <VideoListDetails darkMode={darkMode}>
         <Videotext fontSize="25px" fontWeight="bold">
           {title}
@@ -128,21 +132,40 @@ class SavedVideos extends Component {
         const {savedVideosList} = value
         return (
           <TrendingContainer>
-            <TrendingHeaderContainer darkMode={darkMode}>
-              <LogoCont darkMode={darkMode}>
-                <FaFire className="SideItemStyle" />
-              </LogoCont>
-              <TrendingHeader darkMode={darkMode}>Saved Videos</TrendingHeader>
-            </TrendingHeaderContainer>
-            <TrendingListContainer>
-              {savedVideosList.map(eachItem => (
-                <ListItem
-                  key={eachItem.id}
-                  ItemDetails={eachItem}
-                  darkMode={darkMode}
+            {savedVideosList.length === 0 ? (
+              <NoSearch darkMode={darkMode} data-testid="savedVideos">
+                <NoSearchResultsImage
+                  src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-saved-videos-img.png"
+                  alt="no saved videos"
                 />
-              ))}
-            </TrendingListContainer>
+                <NoSavedVideos darkMode={darkMode}>
+                  No saved videos found
+                </NoSavedVideos>
+                <TextNoSavedVideos darkMode={darkMode}>
+                  You can save your videos while watching them
+                </TextNoSavedVideos>
+              </NoSearch>
+            ) : (
+              <>
+                <TrendingHeaderContainer darkMode={darkMode}>
+                  <LogoCont darkMode={darkMode}>
+                    <FaFire className="SideItemStyle" />
+                  </LogoCont>
+                  <TrendingHeader darkMode={darkMode}>
+                    Saved Videos
+                  </TrendingHeader>
+                </TrendingHeaderContainer>
+                <TrendingListContainer>
+                  {savedVideosList.map(eachItem => (
+                    <ListItem
+                      key={eachItem.id}
+                      ItemDetails={eachItem}
+                      darkMode={darkMode}
+                    />
+                  ))}
+                </TrendingListContainer>
+              </>
+            )}
           </TrendingContainer>
         )
       }}

@@ -64,13 +64,6 @@ class Gaming extends Component {
     this.getVideos()
   }
 
-  onRetry = () => {
-    this.setState(
-      {ApiStatus: ApiStatusConstants.initial},
-      this.getListOfVideosData,
-    )
-  }
-
   getVideos = async () => {
     this.setState({ApiStatus: ApiStatusConstants.loading})
     const apiUrl = `https://apis.ccbp.in/videos/gaming`
@@ -97,6 +90,10 @@ class Gaming extends Component {
     } else {
       this.setState({ApiStatus: ApiStatusConstants.failure})
     }
+  }
+
+  onRetry = () => {
+    this.setState({ApiStatus: ApiStatusConstants.initial}, this.getVideos)
   }
 
   renderLoader = () => (
@@ -126,7 +123,7 @@ class Gaming extends Component {
           </LogoCont>
           <TrendingHeader darkMode={darkMode}>Gaming</TrendingHeader>
         </TrendingHeaderContainer>
-        <TrendingListContainer>
+        <TrendingListContainer data-testid="gaming">
           {videosList.map(eachItem => (
             <ListItem
               key={eachItem.id}

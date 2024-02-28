@@ -15,7 +15,7 @@ export const TrendingContainer = styled.ul`
 `
 
 export const TrendingHeaderContainer = styled.div`
-  background-color: ${props => (props.darkMode ? '#212121' : '#ebebeb')};
+  background-color: ${props => (props.darkMode ? '#0f0f0f' : '#ebebeb')};
   display: flex;
   flex-direction: row;
   justify-content: flex-start;

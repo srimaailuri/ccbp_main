@@ -73,13 +73,6 @@ class Trending extends Component {
     this.getVideos()
   }
 
-  onRetry = () => {
-    this.setState(
-      {ApiStatus: ApiStatusConstants.initial},
-      this.getListOfVideosData,
-    )
-  }
-
   getVideos = async () => {
     this.setState({ApiStatus: ApiStatusConstants.loading})
     const apiUrl = `https://apis.ccbp.in/videos/trending`
@@ -110,6 +103,10 @@ class Trending extends Component {
     }
   }
 
+  onRetry = () => {
+    this.setState({ApiStatus: ApiStatusConstants.initial}, this.getVideos)
+  }
+
   renderLoader = () => (
     <div className="loader-container" data-testid="loader">
       <Loader type="ThreeDots" color="#ffffff" height="50" width="50" />
@@ -118,7 +115,10 @@ class Trending extends Component {
 
   renderFailureView = darkMode => (
     <div className="FailureContainer">
-      <FailureView src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png" />
+      <FailureView
+        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png"
+        alt="failure view"
+      />
       <FailureHead>Oops! Something Went Wrong</FailureHead>
       <FailurePara>
         We are having some trouble to complete your request.Please try again.

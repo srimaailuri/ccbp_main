@@ -63,7 +63,7 @@ export const ProfileImg = styled.img`
   width: 30px;
   height: 30px;
 `
-export const LogoutButton = styled.button`
+export const LogoutButton = styled.div`
   background-color: transparent;
   border-radius: 3px;
   border-color: ${props => (props.darkMode ? 'white' : '#212121')};

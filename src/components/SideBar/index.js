@@ -35,7 +35,7 @@ const SideBarMenu = [
     displaytext: 'Gaming',
   },
   {
-    id: 'SAVEDVIDEOS',
+    id: 'SAVED-VIDEOS',
     Icon: <MdPlaylistAdd className="SideItemStyle" />,
     displaytext: 'Saved Videos',
   },

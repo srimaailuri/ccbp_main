@@ -5,7 +5,7 @@ export const HomeContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   min-width: 100vw;
-  background-color: ${props => (props.darkMode ? '#212121' : 'white')};
+  background-color: ${props => (props.darkMode ? '#181818' : 'white')};
   color: ${props => (props.darkMode ? 'white' : '#212121')};
 `
 

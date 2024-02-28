@@ -66,9 +66,9 @@ const VideoItem = props => {
   return (
     <VideoItemContainer>
       <Link to={`/videos/${id}`} className="LinkContainer">
-        <VideoImage src={thumbnailUrl} />
+        <VideoImage src={thumbnailUrl} alt="video thumbnail" />
         <VideoTextDetails darkMode={darkMode}>
-          <ChannelLogo src={channel.profile_image_url} />
+          <ChannelLogo src={channel.profile_image_url} alt="channel logo" />
           <ChannelDetails>
             <ChannelPara>{title}</ChannelPara>
             <ChannelPara color=" #606060">{channel.name}</ChannelPara>
@@ -134,9 +134,12 @@ class Home extends Component {
   }
 
   renderBanner = () => (
-    <BannerDetails>
-      <NxtWatchLogo src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png" />
-      <NxtWatchPara> Buy NXT Watch prepaid plans with UPI</NxtWatchPara>
+    <BannerDetails data-testid="banner">
+      <NxtWatchLogo
+        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
+        alt="nxt watch logo"
+      />
+      <NxtWatchPara>Buy Nxt Watch Premium</NxtWatchPara>
       <GetItNow>GET IT NOW</GetItNow>
     </BannerDetails>
   )
@@ -153,7 +156,10 @@ class Home extends Component {
 
   renderFailureView = darkMode => (
     <div className="FailureContainer">
-      <FailureView src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png" />
+      <FailureView
+        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png"
+        alt="failure view"
+      />
       <FailureHead>Oops! Something Went Wrong</FailureHead>
       <FailurePara>
         We are having some trouble to complete your request.Please try again.
@@ -220,7 +226,7 @@ class Home extends Component {
         {value => {
           const {darkMode} = value
           return (
-            <div className="Home">
+            <div className="Home" data-testid="home">
               <Header />
               <HomeContainer darkMode={darkMode}>
                 <SideBarContainerView />
@@ -228,8 +234,11 @@ class Home extends Component {
                   {showBanner && (
                     <BannerItem>
                       {this.renderBanner()}
-                      <div data-testid="close">
-                        <CloseBtn onClick={this.onClickCloseBtn}>
+                      <div>
+                        <CloseBtn
+                          onClick={this.onClickCloseBtn}
+                          data-testid="close"
+                        >
                           <IoIosClose className="closeBtn" />
                         </CloseBtn>
                       </div>
@@ -246,6 +255,7 @@ class Home extends Component {
                       <SearchButton
                         onClick={this.onSearchBtn}
                         darkMode={darkMode}
+                        data-testid="searchButton"
                       >
                         <IoIosSearch className="SearchIcon" />
                       </SearchButton>
