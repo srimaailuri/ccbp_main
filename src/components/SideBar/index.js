@@ -20,35 +20,39 @@ import './index.css'
 
 const SideBarMenu = [
   {
-    id: '',
+    id: 'Home',
     Icon: <AiFillHome className="SideItemStyle" />,
     displaytext: 'Home',
+    path: '/',
   },
   {
     id: 'TRENDING',
     Icon: <FaFire className="SideItemStyle" />,
     displaytext: 'Trending',
+    path: '/trending',
   },
   {
     id: 'GAMING',
     Icon: <SiYoutubegaming className="SideItemStyle" />,
     displaytext: 'Gaming',
+    path: '/gaming',
   },
   {
     id: 'SAVED-VIDEOS',
     Icon: <MdPlaylistAdd className="SideItemStyle" />,
-    displaytext: 'Saved Videos',
+    displaytext: 'SavedVideos',
+    path: '/saved-videos',
   },
 ]
 
 const SideBarItem = props => {
   const {Details, match, darkMode} = props
-  const {id, Icon, displaytext} = Details
+  const {id, Icon, displaytext, path} = Details
   const active = true
   console.log(match)
 
   return (
-    <Link to={`/${id}`} className={`SideBarLink ${active}`}>
+    <Link to={path} className={`SideBarLink ${active}`}>
       <SideBarListItem darkMode={darkMode}>
         {Icon}
         <SideText>{displaytext}</SideText>
