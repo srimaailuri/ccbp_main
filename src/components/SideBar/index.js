@@ -40,7 +40,7 @@ const SideBarMenu = [
   {
     id: 'SAVED-VIDEOS',
     Icon: <MdPlaylistAdd className="SideItemStyle" />,
-    displaytext: 'SavedVideos',
+    displaytext: 'Saved videos',
     path: '/saved-videos',
   },
 ]

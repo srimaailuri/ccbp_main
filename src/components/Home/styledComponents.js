@@ -18,6 +18,7 @@ export const HomeContainerItem = styled.div`
     width: 100%;
   }
 `
+
 export const BannerItem = styled.div`
   background-image: url('https://assets.ccbp.in/frontend/react-js/nxt-watch-banner-bg.png');
   background-size: cover;

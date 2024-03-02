@@ -25,6 +25,10 @@ export const PageNotFoundImage = styled.img`
   width: 350px;
   height: 350px;
 `
+export const Pagehead = styled.h1`
+  font-size: props.fontsize;
+  font-weight: props.fontWeight;
+`
 export const PageText = styled.p`
   font-size: props.fontsize;
   font-weight: props.fontWeight;

@@ -8,6 +8,7 @@ import {
   PageNotFound,
   PageNotFoundImage,
   PageText,
+  Pagehead,
 } from './styledComponents'
 
 import SideBarContainerView from '../SideBar'
@@ -29,9 +30,9 @@ class NotFound extends Component {
                 <SideBarContainerView />
                 <PageNotFound darkMode={darkMode}>
                   <PageNotFoundImage src={NotFoundImgUrl} alt="not found" />
-                  <PageText fontsize="20px" fontWeight="bold">
+                  <Pagehead fontsize="20px" fontWeight="bold">
                     Page Not Found
-                  </PageText>
+                  </Pagehead>
                   <PageText fontsize="10px">
                     we are sorry, the page you requested could not be found.
                   </PageText>
