@@ -4,6 +4,10 @@
   align-items: center;
 }
 
+.LinkContainer {
+  text-decoration: none;
+}
+
 .FailureContainer {
   display: flex;
   flex-direction: column;

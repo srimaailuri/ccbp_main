@@ -61,8 +61,6 @@ const VideoItem = props => {
     viewCount,
     publishedAt,
   } = videoItemDetails
-
-  const time = formatDistanceToNow(new Date(publishedAt))
   return (
     <VideoItemContainer>
       <Link to={`/videos/${id}`} className="LinkContainer">
@@ -76,7 +74,7 @@ const VideoItem = props => {
               <ChannelPara color="  #606060">{viewCount} views</ChannelPara>
               <ChannelPara color="  #606060">
                 <Dot> &#8226; </Dot>
-                {time} ago
+                {publishedAt} ago
               </ChannelPara>
             </ChannelCount>
           </ChannelDetails>
@@ -232,7 +230,7 @@ class Home extends Component {
                 <SideBarContainerView />
                 <HomeContainerItem>
                   {showBanner && (
-                    <BannerItem>
+                    <BannerItem data-testid="banner">
                       {this.renderBanner()}
                       <div>
                         <CloseBtn
